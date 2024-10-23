@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testamento de Amor</title>
+    <link rel="manifest" href="manifest.json"> <!-- Enlace al archivo manifest.json -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #ffe6f0;
+        }
+
+        #menu-inicial, #menu-testamentos {
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+            max-width: 500px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #menu-inicial {
+            display: block;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #ff85c2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #ffb3d1;
+        }
+
+        #error-mensaje, #error-nombre {
+            color: red;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        #testamento-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            position: relative;
+            min-height: 300px;
+            transition: opacity 0.5s;
+        }
+
+        #contenido-testamento {
+            font-size: 18px;
+            color: #333;
+            font-style: italic;
+            padding: 20px;
+            position: relative;
+            min-height: 200px;
+        }
+
+        #numero-testamento {
+            font-size: 18px;
+            color: #ff69b4;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flechas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .flechas button {
+            border: none;
+            background: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ff85c2;
+            transition: transform 0.3s;
+        }
+
+        .flechas button:hover {
+            transform: scale(1.4);
+            color: #ff69b4;
+        }
+
+        .progreso {
+            width: 100%;
+            background-color: #ffe6f0;
+            border-radius: 5px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .barra {
+            height: 20px;
+            width: 0;
+            background-color: #ff85c2;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        #contador {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: -30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sección de Bienvenida -->
+    <div id="menu-inicial">
+        <h1>¡Bienvenido al testamento de amor!</h1>
+        <p>Por favor, ingresa tu nombre:</p>
+        <div id="error-mensaje">¡Por favor, ingresa tu nombre!</div>
+        <div id="error-nombre">Lo siento, no eres la persona indicada para leer los testamentos.</div>
+        <input type="text" id="nombre" placeholder="Tu nombre aquí">
+        <button class="button" id="btn-comenzar">Comenzar</button>
+    </div>
+
+    <!-- Sección de Testamentos -->
+    <div id="menu-testamentos">
+        <h2 id="titulo-testamento">¡Hola, <span id="nombre-usuario"></span>!</h2>
+
+        <div id="testamento-container">
+            <div id="contenido-testamento">Aquí comenzará tu testamento de amor.</div>
+            <div id="numero-testamento"></div>
+        </div>
+
+        <div class="flechas">
+            <button onclick="anteriorTestamento()">&#60;</button>
+            <button onclick="siguienteTestamento()">&#62;</button>
+        </div>
+
+        <div class="progreso">
+            <div class="barra" id="barra-progreso"></div>
+            <div id="contador">1 / 11</div>
+        </div>
+    </div>
+
+    <script>
+        let testamentos = [
+            "Un amor verdadero no se mide en palabras, sino en las acciones que construyen día a día la confianza y el respeto mutuo.",
+            "Aunque la distancia nos separe físicamente, nuestros corazones están más unidos que nunca.",
+            "El amor es la fuerza más poderosa del universo, capaz de atravesar todas las barreras.",
+            "Nunca olvides que cada día a tu lado es un regalo que atesoro en lo más profundo de mi ser.",
+            "Tu sonrisa ilumina mis días y tu amor da sentido a mi vida.",
+            "No importa la adversidad, siempre estaré a tu lado, apoyándote y amándote.",
+            "Eres la melodía que alegra mi corazón y la razón de mis sueños.",
+            "Contigo aprendí que el amor es un viaje, no un destino.",
+            "En cada latido de mi corazón, hay un susurro de amor hacia ti.",
+            "Mi amor por ti es eterno, como las estrellas en el cielo.",
+            "El amor verdadero no conoce límites ni finales."
+        ];
+
+        let indiceTestamento = 0;
+
+        // Lista de nombres permitidos
+        const nombresPermitidos = ["Aurora", "Auro", "Aurori", "aurora", "auro", "aurori"];
+
+        document.getElementById("btn-comenzar").addEventListener("click", empezar);
+        document.getElementById("nombre").addEventListener("keypress", function(event) {
+            if (event.key === 'Enter') {
+                empezar();
+            }
+        });
+
+        function empezar() {
+            let nombre = document.getElementById("nombre").value.trim();
+            
+            if (!nombre) {
+                document.getElementById("error-mensaje").style.display = "block";
+                document.getElementById("error-nombre").style.display = "none";
+            } else if (nombresPermitidos.includes(nombre)) {
+                document.getElementById("nombre-usuario").textContent = nombre;
+                document.getElementById("menu-inicial").style.display = "none";
+                document.getElementById("menu-testamentos").style.display = "block";
+                document.getElementById("error-mensaje").style.display = "none";
+                document.getElementById("error-nombre").style.display = "none";
+                mostrarTestamento();
+            } else {
+                document.getElementById("error-mensaje").style.display = "none";
+                document.getElementById("error-nombre").style.display = "block";
+            }
+        }
+
+        function mostrarTestamento() {
+            let testamentoDiv = document.getElementById("testamento-container");
+            testamentoDiv.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById("contenido-testamento").textContent = testamentos[indiceTestamento];
+                document.getElementById("numero-testamento").textContent = `${indiceTestamento + 1}`;
+                document.getElementById("contador").textContent = (indiceTestamento + 1) + " / " + testamentos.length;
+                actualizarProgreso();
+                testamentoDiv.style.opacity = 1;
+            }, 500);
+        }
+
+        function siguienteTestamento() {
+            if (indiceTestamento < testamentos.length - 1) {
+                indiceTestamento++;
+                mostrarTestamento();
+            }
+        }
+
+        function anteriorTestamento() {
+            if (indiceTestamento > 0) {
+                indiceTestamento--;
+                mostrarTestamento();
+            }
+        }
+
+        function actualizarProgreso() {
+            const barra = document.getElementById("barra-progreso");
+            const porcentaje = ((indiceTestamento + 1) / testamentos.length) * 100;
+            barra.style.width = porcentaje + "%";
+        }
+    </script>
+</body>
+</html>
