@@ -1116,3 +1116,149 @@ body {
 .landscape .orientation-icon {
     transform: rotate(90deg);
 }
+
+/* Ajustes para Android */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Ajustar el tamaño de fuente para dispositivos Android */
+body {
+    font-size: 16px; /* Tamaño base recomendado para Android */
+    -webkit-text-size-adjust: none;
+}
+
+/* Mejorar el scrolling en Android */
+.scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+/* Optimizar botones para touch en Android */
+button {
+    min-height: 48px; /* Tamaño mínimo recomendado por Material Design */
+    min-width: 48px;
+    padding: 12px 24px;
+}
+
+/* Ajustar inputs para Android */
+input {
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    font-size: 16px; /* Evita zoom automático en Android */
+}
+
+/* Ajustes específicos para Android */
+@media screen and (max-width: 768px) {
+    /* Ajuste de tamaños y espaciado */
+    #menu-nombres, #menu-categorias, #menu-testamentos {
+        width: 95%;
+        padding: 20px 15px;
+        margin: 10px auto;
+    }
+
+    /* Hacer los botones más grandes y espaciados para touch */
+    .button, 
+    .btn-volver,
+    .navegacion button,
+    .navegacion-testamentos button {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+        margin: 5px;
+        touch-action: manipulation;
+    }
+
+    /* Ajustar grid de categorías */
+    #categoria-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 10px;
+    }
+
+    /* Optimizar elementos táctiles */
+    .categoria-item {
+        min-height: 80px;
+        padding: 12px;
+        margin: 5px 0;
+    }
+
+    /* Mejorar legibilidad */
+    #contenido-testamento {
+        font-size: 18px;
+        line-height: 1.4;
+        padding: 10px;
+    }
+
+    /* Ajustar controles de navegación */
+    .reacciones-container {
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .reaccion-btn {
+        font-size: 24px;
+        padding: 8px;
+    }
+
+    /* Optimizar scrolling */
+    * {
+        overscroll-behavior: contain;
+    }
+
+    /* Prevenir zoom no deseado */
+    .barra-progreso,
+    input[type="text"],
+    select {
+        font-size: 16px;
+    }
+
+    /* Mejorar feedback táctil */
+    .favorito-btn,
+    .theme-btn,
+    .orientation-btn {
+        padding: 12px;
+    }
+
+    /* Ajustar animaciones para mejor rendimiento */
+    .unfold-animation,
+    .slide-transition,
+    .floating-hearts {
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+}
+
+/* Soporte para pantallas de alta densidad */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .categoria-item,
+    .button,
+    .btn-volver {
+        border-width: 0.5px;
+    }
+}
+
+/* Prevenir selección de texto no deseada */
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Optimizar rendimiento de animaciones */
+.animated {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Ajustes para evitar problemas con teclado virtual */
+@media screen and (max-height: 500px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+    }
+}
