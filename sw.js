@@ -1,20 +1,22 @@
-// This is the service worker with the combined offline experience (Offline page + Offline copy of pages)
-
-const CACHE = "pwabuilder-offline-page";
-const CACHE_NAME = 'testamentos-v2';
+// This is the "Offline page" service worker
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
+const CACHE = "pwabuilder-page";
+const CACHE_NAME = 'testamentos-v2';
+
+// Página de fallback offline
 const offlineFallbackPage = "testamento-amor.html";
 
+// Archivos a cachear
 const urlsToCache = [
     '/',
     '/testamento-amor.html',
     '/styles.css',
     '/script.js',
     '/manifest.json',
-    '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png'
+    'https://raw.githubusercontent.com/Leitof7/testamento/main/icon-192x192.png',
+    'https://raw.githubusercontent.com/Leitof7/testamento/main/icon-512x512.png'
 ];
 
 self.addEventListener("message", (event) => {
@@ -24,7 +26,7 @@ self.addEventListener("message", (event) => {
 });
 
 // Instalación
-self.addEventListener('install', event => {
+self.addEventListener('install', async (event) => {
     event.waitUntil(
         Promise.all([
             caches.open(CACHE_NAME)
@@ -38,7 +40,33 @@ self.addEventListener('install', event => {
     );
 });
 
-// Activación
+if (workbox.navigationPreload.isSupported()) {
+    workbox.navigationPreload.enable();
+}
+
+// Fetch
+self.addEventListener('fetch', (event) => {
+    if (event.request.mode === 'navigate') {
+        event.respondWith((async () => {
+            try {
+                const preloadResp = await event.preloadResponse;
+
+                if (preloadResp) {
+                    return preloadResp;
+                }
+
+                const networkResp = await fetch(event.request);
+                return networkResp;
+            } catch (error) {
+                const cache = await caches.open(CACHE);
+                const cachedResp = await cache.match(offlineFallbackPage);
+                return cachedResp;
+            }
+        })());
+    }
+});
+
+// Activación y limpieza de caches antiguos
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
@@ -50,37 +78,6 @@ self.addEventListener('activate', event => {
                 })
             );
         })
-    );
-});
-
-// Fetch
-self.addEventListener('fetch', event => {
-    if (event.request.method !== 'GET') return;
-
-    event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                if (!response || response.status !== 200 || response.type !== 'basic') {
-                    return response;
-                }
-
-                const responseToCache = response.clone();
-                caches.open(CACHE_NAME)
-                    .then(cache => {
-                        cache.put(event.request, responseToCache);
-                    });
-
-                return response;
-            })
-            .catch(() => {
-                return caches.match(event.request)
-                    .then(response => {
-                        if (response) {
-                            return response;
-                        }
-                        return caches.match(offlineFallbackPage);
-                    });
-            })
     );
 });
 
