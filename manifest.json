@@ -2,41 +2,30 @@
     "name": "Testamentos de amor",
     "short_name": "Testamentos",
     "description": "Una aplicación para compartir los Testamentos de Leo a Aurora.",
-    "start_url": "./",
-    "scope": "./",
+    "id": "/",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#FFFFFF",
     "theme_color": "#FF69B4",
     "icons": [
         {
-            "src": "./icon-192x192.png",
+            "src": "icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
-            "src": "./icon-512x512.png",
+            "src": "icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
         }
     ],
     "prefer_related_applications": false,
     "categories": ["lifestyle"],
     "lang": "es-ES",
-    "dir": "ltr",
-    "display_override": ["standalone", "minimal-ui", "browser"],
-    "shortcuts": [],
-    "screenshots": [],
-    "features": [
-        "Cross Platform",
-        "fast",
-        "simple"
-    ],
-    "related_applications": [],
-    "handle_links": "preferred",
-    "launch_handler": {
-        "client_mode": ["navigate-existing", "auto"]
-    }
+    "display_override": ["standalone"],
+    "shortcuts": []
 }
