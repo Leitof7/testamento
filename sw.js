@@ -1,22 +1,26 @@
-const CACHE_NAME = 'testamentos-v1';
+const CACHE_NAME = 'testamentos-v2';
 const urlsToCache = [
-    './',
-    './testamento-amor.html',
-    './styles.css',
-    './script.js',
-    './icons/icon-192x192.png',
-    './icons/icon-512x512.png'
+    '/',
+    '/testamento-amor.html',
+    '/styles.css',
+    '/script.js',
+    '/manifest.json',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png'
 ];
 
-// Instalación del SW
+// Instalación
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
+            .then(cache => {
+                console.log('Cache abierto');
+                return cache.addAll(urlsToCache);
+            })
     );
 });
 
-// Activación del SW
+// Activación
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
@@ -31,7 +35,7 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Estrategia de cache
+// Fetch
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
