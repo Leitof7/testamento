@@ -3,8 +3,8 @@
     "name": "Testamento de Amor",
     "short_name": "Testamentos",
     "description": "Una colección de testamentos de amor personalizados para momentos especiales",
-    "start_url": "/testamento-amor.html",
-    "scope": "/",
+    "start_url": "https://leitof7.github.io/testamento/testamento-amor.html",
+    "scope": "https://leitof7.github.io/testamento/",
     "display": "standalone",
     "orientation": "any",
     "background_color": "#FFFFFF",
@@ -14,13 +14,13 @@
     },
     "icons": [
         {
-            "src": "https://raw.githubusercontent.com/Leitof7/testamento/main/icons/icon-192x192.png",
+            "src": "https://leitof7.github.io/testamento/icons/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "https://raw.githubusercontent.com/Leitof7/testamento/main/icons/icon-512x512.png",
+            "src": "https://leitof7.github.io/testamento/icons/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
