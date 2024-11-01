@@ -8,10 +8,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Testamentos">
-    <meta name="theme-color" content="#ff69b4">
+    <meta name="theme-color" content="#FF69B4">
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="styles.css">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-startup-image" href="splash.png">
 </head>
 <body>
     <div id="loader-container">
@@ -30,8 +32,14 @@
     </div>
 
     <div class="theme-toggle">
-        <button id="toggleTheme" class="theme-btn">
+        <button id="toggleTheme" class="theme-btn" aria-label="Cambiar tema">
             <span class="theme-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="orientation-toggle">
+        <button id="toggleOrientation" class="orientation-btn" aria-label="Cambiar orientación">
+            <span class="orientation-icon">📱</span>
         </button>
     </div>
 

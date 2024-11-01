@@ -258,9 +258,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
+            navigator.serviceWorker.register('./sw.js')
                 .then(registration => {
-                    console.log('SW registrado:', registration);
+                    console.log('SW registrado correctamente:', registration);
                 })
                 .catch(error => {
                     console.log('Error al registrar SW:', error);
@@ -779,4 +779,49 @@ document.addEventListener('DOMContentLoaded', () => {
         // ... tu código existente ...
         solicitarPermisoNotificaciones();
     });
+});
+
+// Agregar al inicio del archivo
+let currentOrientation = localStorage.getItem('orientation') || 'portrait';
+
+function toggleOrientation() {
+    try {
+        const orientationBtn = document.getElementById('toggleOrientation');
+        const orientationIcon = orientationBtn.querySelector('.orientation-icon');
+        
+        currentOrientation = currentOrientation === 'portrait' ? 'landscape' : 'portrait';
+        
+        // Guardar preferencia
+        localStorage.setItem('orientation', currentOrientation);
+        
+        // Actualizar UI
+        document.body.style.orientation = currentOrientation;
+        orientationBtn.classList.toggle('landscape');
+        
+        // Actualizar manifest dinámicamente
+        const manifestLink = document.querySelector('link[rel="manifest"]');
+        const manifestData = {
+            // ... resto del manifest ...
+            orientation: currentOrientation
+        };
+        
+        const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(blob);
+        manifestLink.href = manifestURL;
+    } catch (error) {
+        console.error('Error al cambiar orientación:', error);
+    }
+}
+
+// Agregar al DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... código existente ...
+    
+    // Configurar orientación inicial
+    const orientationBtn = document.getElementById('toggleOrientation');
+    if (currentOrientation === 'landscape') {
+        orientationBtn.classList.add('landscape');
+    }
+    
+    orientationBtn.addEventListener('click', toggleOrientation);
 });

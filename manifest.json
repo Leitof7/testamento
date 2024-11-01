@@ -1,33 +1,28 @@
 {
+    "id": "testamento-amor-v1",
     "name": "Testamento de Amor",
     "short_name": "Testamentos",
-    "description": "Una colección de testamentos de amor personalizados",
-    "start_url": "/testamento-amor.html",
+    "description": "Una colección de testamentos de amor personalizados para momentos especiales",
+    "start_url": "./testamento-amor.html",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ff69b4",
-    "orientation": "portrait",
+    "orientation": "any",
+    "background_color": "#FFFFFF",
+    "theme_color": "#FF69B4",
+    "launch_handler": {
+        "client_mode": ["navigate-existing", "auto"]
+    },
     "icons": [
         {
-            "src": "icons/icon-72x72.png",
-            "sizes": "72x72",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "icons/icon-192x192.png",
+            "src": "./icons/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "icons/icon-512x512.png",
+            "src": "./icons/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         }
-    ],
-    "categories": ["lifestyle", "social"],
-    "screenshots": [],
-    "prefer_related_applications": false
+    ]
 }

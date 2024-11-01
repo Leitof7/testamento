@@ -688,6 +688,7 @@ input[type="text"] {
     font-size: 20px;
     color: rgba(255, 105, 180, 0.2);
     animation: float-heart 6s linear infinite;
+    will-change: transform;
 }
 
 @keyframes float-heart {
@@ -884,6 +885,7 @@ input[type="text"] {
     font-size: 20px;
     color: rgba(255, 105, 180, 0.2);
     animation: float-heart 6s linear infinite;
+    will-change: transform;
 }
 
 @keyframes float-heart {
@@ -1085,4 +1087,32 @@ body {
 
 .notificaciones-btn:hover {
     background-color: #ff1493;
+}
+
+.orientation-toggle {
+    position: fixed;
+    top: 70px;  /* Debajo del toggle de tema */
+    right: 20px;
+    z-index: 1000;
+}
+
+.orientation-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.orientation-icon {
+    font-size: 24px;
+    display: block;
+    transition: transform 0.3s;
+}
+
+/* Clase para rotar el icono */
+.landscape .orientation-icon {
+    transform: rotate(90deg);
 }
