@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-title" content="Testamentos">
     <meta name="theme-color" content="#FF69B4">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Leitof7/testamento/main/icons/icon-192x192.png">
-    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-startup-image" href="splash.png">
@@ -87,14 +87,16 @@
     <div class="firma">Leo© "0.64"</div>
 
     <script>
-        if (typeof navigator.serviceWorker !== 'undefined') {
-            navigator.serviceWorker.register('sw.js')
-                .then(function(registration) {
-                    console.log('Service Worker registrado con éxito:', registration.scope);
-                })
-                .catch(function(error) {
-                    console.error('Error al registrar el Service Worker:', error);
-                });
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Error al registrar el Service Worker:', error);
+                    });
+            });
         }
     </script>
 </body>
