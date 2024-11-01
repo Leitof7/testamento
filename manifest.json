@@ -1,12 +1,12 @@
 {
-    "id": "testamento-amor-v1",
+    "id": "testamento-amor-pwa",
     "name": "Testamento de Amor",
     "short_name": "Testamentos",
-    "description": "Una colección de testamentos de amor personalizados para momentos especiales",
+    "description": "Una aplicación para crear y compartir testamentos de amor personalizados, diseñada para momentos especiales y románticos.",
     "start_url": "https://leitof7.github.io/testamento/testamento-amor.html",
     "scope": "https://leitof7.github.io/testamento/",
     "display": "standalone",
-    "orientation": "any",
+    "orientation": "portrait",
     "background_color": "#FFFFFF",
     "theme_color": "#FF69B4",
     "launch_handler": {
