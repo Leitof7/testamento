@@ -1,29 +1,34 @@
 {
-    "id": "testamento-amor-pwa",
-    "name": "Testamento de Amor",
+    "name": "Testamentos de amor",
     "short_name": "Testamentos",
-    "description": "Una aplicación para crear y compartir testamentos de amor personalizados, diseñada para momentos especiales y románticos.",
-    "start_url": "https://leitof7.github.io/testamento/testamento-amor.html",
-    "scope": "https://leitof7.github.io/testamento/",
+    "start_url": "/testamento-amor.html",
     "display": "standalone",
-    "orientation": "portrait",
-    "background_color": "#FFFFFF",
-    "theme_color": "#FF69B4",
-    "launch_handler": {
-        "client_mode": ["navigate-existing", "auto"]
-    },
     "icons": [
         {
-            "src": "https://raw.githubusercontent.com/Leitof7/testamento/main/icon-192x192.png",
-            "sizes": "192x192",
+            "src": "/icon-192x192.png",
             "type": "image/png",
+            "sizes": "192x192",
             "purpose": "any maskable"
         },
         {
-            "src": "https://raw.githubusercontent.com/Leitof7/testamento/main/icon-512x512.png",
-            "sizes": "512x512",
+            "src": "/icon-512x512.png",
             "type": "image/png",
+            "sizes": "512x512",
             "purpose": "any maskable"
         }
+    ],
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "theme_color": "#FF69B4",
+    "background_color": "#FFFFFF",
+    "id": "testamentos-amor-pwa",
+    "description": "Una aplicación para compartir los Testamentos de Leo a Aurora.",
+    "dir": "ltr",
+    "lang": "es",
+    "orientation": "portrait",
+    "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+    "categories": [
+        "lifestyle",
+        "social"
     ]
 }
